@@ -4,7 +4,7 @@
 
 ### Install
 ```
-npm install skshetry/simplestore
+$ npm install skshetry/simplestore
 ```
 
 ### Development
@@ -101,4 +101,7 @@ Provides a list of connections to the store.
 ```js
 fruitStore.connections();
 ```
+
+### License
+MIT
 
