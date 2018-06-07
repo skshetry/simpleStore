@@ -8,10 +8,11 @@ $ npm install skshetry/simplestore
 ```
 
 ### Development
-1. `npm install`
-2. `npm run init` to create a `dist` folder
-3. `npm run build`
-4. `npm run clean` to remove `dist` folder
+1. `npm install --dev` to install dependencies
+2. `npm run test`
+3. `npm run init` to create a `dist` folder
+4. `npm run build`
+5. `npm run clean` to remove `dist` folder
 
 
 ### Why
@@ -102,6 +103,16 @@ Provides a list of connections to the store.
 fruitStore.connections();
 ```
 
-### License
+
+### Knowing key of the store for whatever reasons
+**key**
+
+```js
+fruitStore.key;
+// 'fruits'
+```
+
+
+## License
 MIT
 
