@@ -11,18 +11,22 @@
     "clean": "rm -rf dist",
     "prod": "NODE_ENV=production babel ./src/store.js -o dist/store.min.js",
     "dev": "babel ./src/store.js -o dist/store.js",
-    "build": "npm run prod && npm run dev"
+    "build": "npm run prod && npm run dev",
+    "test": "jest"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
+    "babel-core": "^6.26.3",
     "babel-minify": "^0.4.3",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
-    "babel-preset-env": "1.7.0"
+    "babel-preset-env": "1.7.0",
+    "babel-jest": "^23.0.1",
+    "jest": "^23.1.0"
   },
   "files": [
     "dist"
   ],
+  "jest": {},
   "babel": {
     "presets": [
       [

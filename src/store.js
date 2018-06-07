@@ -2,25 +2,25 @@ import regeneratorRuntime from "regenerator-runtime";
 
 export default class Store {
   constructor(key, init_func) {
-    this.data = undefined
+    this._data = undefined
     this.key = key
-    this.callBacks = []
+    this._callBacks = []
     if (init_func) init_func()
   }
 
   get() {
     // Should check for `undefined` by the receiver
-    return this.data
+    return this._data
   }
 
   async set(data) {
-    this.data = data
-    await this.callBackAll()
-    return this.data
+    this._data = data
+    await this._callBackAll()
+    return this._data
   }
 
   connect(component, callback) {
-    if (!this.callBacks.includes(component)) this.callBacks.push(component)
+    if (!this._callBacks.includes(component)) this._callBacks.push(component)
     // initialize state if it isn't
     component.state = component.state || {}
     if (callback) callback()
@@ -28,21 +28,21 @@ export default class Store {
 
   connections() {
     // list connections
-    return this.callBacks
+    return this._callBacks
   }
 
   async disconnect(component) {
-    this.callBacks = await this.callBacks.filter(
+    this._callBacks = await this._callBacks.filter(
       callback => component !== callback
     )
     console.warn("Disconnected.")
   }
 
-  async callBackAll() {
+  async _callBackAll() {
     await Promise.all(
-      this.callBacks.map(async component => {
+      this._callBacks.map(async component => {
         component.setState({
-          [this.key]: this.data
+          [this.key]: this._data
         })
       })
     )

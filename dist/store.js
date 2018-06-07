@@ -97,9 +97,9 @@
     function Store(key, init_func) {
       _classCallCheck(this, Store);
 
-      this.data = undefined;
+      this._data = undefined;
       this.key = key;
-      this.callBacks = [];
+      this._callBacks = [];
       if (init_func) init_func();
     }
 
@@ -107,7 +107,7 @@
       key: "get",
       value: function get() {
         // Should check for `undefined` by the receiver
-        return this.data;
+        return this._data;
       }
     }, {
       key: "set",
@@ -117,12 +117,12 @@
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  this.data = data;
+                  this._data = data;
                   _context.next = 3;
-                  return this.callBackAll();
+                  return this._callBackAll();
 
                 case 3:
-                  return _context.abrupt("return", this.data);
+                  return _context.abrupt("return", this._data);
 
                 case 4:
                 case "end":
@@ -141,7 +141,7 @@
     }, {
       key: "connect",
       value: function connect(component, callback) {
-        if (!this.callBacks.includes(component)) this.callBacks.push(component);
+        if (!this._callBacks.includes(component)) this._callBacks.push(component);
         // initialize state if it isn't
         component.state = component.state || {};
         if (callback) callback();
@@ -150,7 +150,7 @@
       key: "connections",
       value: function connections() {
         // list connections
-        return this.callBacks;
+        return this._callBacks;
       }
     }, {
       key: "disconnect",
@@ -161,12 +161,12 @@
               switch (_context2.prev = _context2.next) {
                 case 0:
                   _context2.next = 2;
-                  return this.callBacks.filter(function (callback) {
+                  return this._callBacks.filter(function (callback) {
                     return component !== callback;
                   });
 
                 case 2:
-                  this.callBacks = _context2.sent;
+                  this._callBacks = _context2.sent;
 
                   console.warn("Disconnected.");
 
@@ -185,7 +185,7 @@
         return disconnect;
       }()
     }, {
-      key: "callBackAll",
+      key: "_callBackAll",
       value: function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee4() {
           var _this = this;
@@ -195,13 +195,13 @@
               switch (_context4.prev = _context4.next) {
                 case 0:
                   _context4.next = 2;
-                  return Promise.all(this.callBacks.map(function () {
+                  return Promise.all(this._callBacks.map(function () {
                     var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee3(component) {
                       return _regeneratorRuntime2.default.wrap(function _callee3$(_context3) {
                         while (1) {
                           switch (_context3.prev = _context3.next) {
                             case 0:
-                              component.setState(_defineProperty({}, _this.key, _this.data));
+                              component.setState(_defineProperty({}, _this.key, _this._data));
 
                             case 1:
                             case "end":
@@ -224,11 +224,11 @@
           }, _callee4, this);
         }));
 
-        function callBackAll() {
+        function _callBackAll() {
           return _ref3.apply(this, arguments);
         }
 
-        return callBackAll;
+        return _callBackAll;
       }()
     }]);
 
