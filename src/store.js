@@ -1,3 +1,5 @@
+import regeneratorRuntime from "regenerator-runtime";
+
 export default class Store {
   constructor(key, init_func) {
     this.data = undefined

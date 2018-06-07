@@ -1,18 +1,23 @@
 {
   "name": "simplestore",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple store especially made for react",
-  "main": "index.js",
+  "main": "dist/store.min.js",
+  "module": "dist/store.min.js",
   "author": "Saugat Pachhai",
   "license": "MIT",
   "scripts": {
     "init": "mkdir dist",
     "clean": "rm -rf dist",
-    "build": "babel ./src -d ./dist"
+    "prod": "NODE_ENV=production babel ./src/store.js -o dist/store.min.js",
+    "dev": "babel ./src/store.js -o dist/store.js",
+    "build": "npm run prod && npm run dev"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
+    "babel-minify": "^0.4.3",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
     "babel-preset-env": "1.7.0"
   },
   "files": [
@@ -20,12 +25,28 @@
   ],
   "babel": {
     "presets": [
-      ["env", {
-        "targets": {
-          "node": 8,
-          "ie": 8
+      [
+        "env",
+        {
+          "targets": {
+            "node": 8,
+            "ie": 8
+          }
         }
-      }]
+      ]
+    ],
+    "env": {
+      "production": {
+        "presets": [
+          "minify"
+        ]
+      }
+    },
+    "plugins": [
+      "transform-es2015-modules-umd"
     ]
+  },
+  "dependencies": {
+    "regenerator-runtime": "^0.11.1"
   }
 }
