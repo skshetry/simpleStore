@@ -40,6 +40,22 @@ it("Set and Get value something objects", () => {
   });
 });
 
+it("Do not call sync state on no data change", () => {
+  let fruitStore = new Store("fruits");
+  let mockCallBack = jest.fn();
+  fruitStore._syncState = mockCallBack;
+
+  let fruits = ["apple", "mango", "guava", "litchi"];
+  let old_data = fruitStore.get();
+
+  return fruitStore.set(fruits).then(data => {
+    fruitStore.set(fruits).then(data_next => {
+      expect(data).toBe(data_next)
+      expect(mockCallBack.mock.calls.length).toBe(0);
+    })
+  });
+});
+
 it("Set and Get value something in an array", () => {
   let players = {
     a: "a",

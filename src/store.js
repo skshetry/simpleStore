@@ -25,9 +25,10 @@ export default class Store {
   }
 
   async set(data) {
-    if (this._data === data) return this._data
+    if (this._data !== data){
     this._data = data
     await this._syncState()
+    }
     return this._data
   }
 

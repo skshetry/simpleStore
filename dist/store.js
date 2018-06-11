@@ -160,22 +160,19 @@
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  if (!(this._data === data)) {
-                    _context.next = 2;
+                  if (!(this._data !== data)) {
+                    _context.next = 4;
                     break;
                   }
 
-                  return _context.abrupt("return", this._data);
-
-                case 2:
                   this._data = data;
-                  _context.next = 5;
+                  _context.next = 4;
                   return this._syncState();
 
-                case 5:
+                case 4:
                   return _context.abrupt("return", this._data);
 
-                case 6:
+                case 5:
                 case "end":
                   return _context.stop();
               }
