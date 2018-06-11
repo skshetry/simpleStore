@@ -1,5 +1,8 @@
 ## simpleStore
+[![Build Status](https://travis-ci.org/skshetry/simpleStore.svg?branch=master)](https://travis-ci.org/skshetry/simpleStore)
+[![Coverage Status](https://coveralls.io/repos/github/skshetry/simpleStore/badge.svg)](https://coveralls.io/github/skshetry/simpleStore)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fskshetry%2FsimpleStore.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fskshetry%2FsimpleStore?ref=badge_shield)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b3529c5018da2491f3eb/maintainability)](https://codeclimate.com/github/skshetry/simpleStore/maintainability)
 
 **A simple state management for React.**
 
