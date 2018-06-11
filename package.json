@@ -1,9 +1,9 @@
 {
   "name": "simplestore",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A simple store especially made for react",
-  "main": "dist/store.min.js",
-  "module": "dist/store.min.js",
+  "main": "dist/store.js",
+  "module": "dist/store.js",
   "author": "Saugat Pachhai",
   "license": "MIT",
   "scripts": {
@@ -17,10 +17,11 @@
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-core": "^6.26.3",
+    "babel-jest": "^23.0.1",
     "babel-minify": "^0.4.3",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "1.7.0",
-    "babel-jest": "^23.0.1",
     "jest": "^23.1.0"
   },
   "files": [
@@ -47,7 +48,8 @@
       }
     },
     "plugins": [
-      "transform-es2015-modules-umd"
+      "transform-es2015-modules-umd",
+      "transform-object-rest-spread"
     ]
   },
   "dependencies": {

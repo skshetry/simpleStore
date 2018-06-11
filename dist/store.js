@@ -25,21 +25,6 @@
     };
   }
 
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-
-    return obj;
-  }
-
   function _asyncToGenerator(fn) {
     return function () {
       var gen = fn.apply(this, arguments);
@@ -68,6 +53,53 @@
       });
     };
   }
+
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  };
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+        arr2[i] = arr[i];
+      }
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -99,15 +131,26 @@
 
       this._data = undefined;
       this.key = key;
-      this._callBacks = [];
-      if (init_func) init_func();
+      this._connectedComponents = [];
+      Store.instances = _extends({}, Store.instances, _defineProperty({}, key, this));
+      if (typeof init_func === "function") init_func();
     }
 
     _createClass(Store, [{
       key: "get",
       value: function get() {
         // Should check for `undefined` by the receiver
+        if (Array.isArray(this._data)) return [].concat(_toConsumableArray(this._data));
+        if (_typeof(this._data) === "object") return _extends({}, this._data);
         return this._data;
+      }
+    }, {
+      key: "connect",
+      value: function connect(component, callback) {
+        if (!this._connectedComponents.includes(component)) this._connectedComponents = [].concat(_toConsumableArray(this._connectedComponents), [component]);
+        // initialize state if it isn't
+        component.state = component.state || {};
+        if (typeof callback === "function") callback();
       }
     }, {
       key: "set",
@@ -117,14 +160,22 @@
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  this._data = data;
-                  _context.next = 3;
-                  return this._callBackAll();
+                  if (!(this._data === data)) {
+                    _context.next = 2;
+                    break;
+                  }
 
-                case 3:
                   return _context.abrupt("return", this._data);
 
-                case 4:
+                case 2:
+                  this._data = data;
+                  _context.next = 5;
+                  return this._syncState();
+
+                case 5:
+                  return _context.abrupt("return", this._data);
+
+                case 6:
                 case "end":
                   return _context.stop();
               }
@@ -139,20 +190,6 @@
         return set;
       }()
     }, {
-      key: "connect",
-      value: function connect(component, callback) {
-        if (!this._callBacks.includes(component)) this._callBacks.push(component);
-        // initialize state if it isn't
-        component.state = component.state || {};
-        if (callback) callback();
-      }
-    }, {
-      key: "connections",
-      value: function connections() {
-        // list connections
-        return this._callBacks;
-      }
-    }, {
       key: "disconnect",
       value: function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee2(component) {
@@ -161,12 +198,12 @@
               switch (_context2.prev = _context2.next) {
                 case 0:
                   _context2.next = 2;
-                  return this._callBacks.filter(function (callback) {
-                    return component !== callback;
+                  return this._connectedComponents.filter(function (connectedComponent) {
+                    return component !== connectedComponent;
                   });
 
                 case 2:
-                  this._callBacks = _context2.sent;
+                  this._connectedComponents = _context2.sent;
 
                   console.warn("Disconnected.");
 
@@ -185,7 +222,13 @@
         return disconnect;
       }()
     }, {
-      key: "_callBackAll",
+      key: "connections",
+      value: function connections() {
+        // list connections
+        return this._connectedComponents;
+      }
+    }, {
+      key: "_syncState",
       value: function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee4() {
           var _this = this;
@@ -195,7 +238,7 @@
               switch (_context4.prev = _context4.next) {
                 case 0:
                   _context4.next = 2;
-                  return Promise.all(this._callBacks.map(function () {
+                  return Promise.all(this._connectedComponents.map(function () {
                     var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee3(component) {
                       return _regeneratorRuntime2.default.wrap(function _callee3$(_context3) {
                         while (1) {
@@ -224,12 +267,18 @@
           }, _callee4, this);
         }));
 
-        function _callBackAll() {
+        function _syncState() {
           return _ref3.apply(this, arguments);
         }
 
-        return _callBackAll;
+        return _syncState;
       }()
+    }], [{
+      key: "list",
+      value: function list(key) {
+        if (key) return Store.instances[key]; // check for undefined in case the key doesn't
+        return Store.instances;
+      }
     }]);
 
     return Store;

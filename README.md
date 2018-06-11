@@ -44,9 +44,9 @@ const toDoStore = Store('todos', () => {
 ### Reading/Changing data
 **set(*data*)** / **get( )**
 
-`get` returns the data in the store.
+`get` returns the copy of the data in the store. 
 
-`set` is async function that sets/overrides data and then returns new data after propagating new changes to the `connected` components.
+`set` is async function that sets/overrides data and then returns new data after propagating new changes to the `connected` components. The `data` should not be mutated as doing this, the change will not propagate. 
 
 ```js
 fruitStore.get() == undefined;
@@ -103,9 +103,21 @@ Provides a list of connections to the store.
 fruitStore.connections();
 ```
 
+### Get other stores
+**list(*[key]*)**
+
+Is a static function. If key is passed, this provides the instance having the key. If the store with the key doesn't exist, it will return `undefined`. If key isn't passed, this will return all the instances.
+
+```js
+Store.list()
+
+Store.list('fruits')
+// fruitStore
+```
+
 
 ### Knowing key of the store for whatever reasons
-**key**
+*key*
 
 ```js
 fruitStore.key;
