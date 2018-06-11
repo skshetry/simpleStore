@@ -50,9 +50,9 @@ it("Do not call sync state on no data change", () => {
 
   return fruitStore.set(fruits).then(data => {
     fruitStore.set(fruits).then(data_next => {
-      expect(data).toBe(data_next)
+      expect(data).toBe(data_next);
       expect(mockCallBack.mock.calls.length).toBe(0);
-    })
+    });
   });
 });
 
@@ -106,6 +106,22 @@ it("Connect with callback", () => {
   );
 
   expect(mockCallBack.mock.calls.length).toBe(1);
+});
+
+it("Duplicate connection only one should be present", () => {
+  let fruitStore = new Store("fruits");
+  let mockCallBack = jest.fn();
+
+  fruitStore.connect(
+    componentMock,
+    mockCallBack
+  );
+  fruitStore.connect(
+    componentMock,
+    mockCallBack
+  );
+
+  expect(fruitStore.connections()).toEqual([componentMock]);
 });
 
 it("Disconnect components", () => {
