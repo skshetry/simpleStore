@@ -1,6 +1,6 @@
 {
   "name": "simplestore",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A simple store especially made for react",
   "main": "dist/store.js",
   "module": "dist/store.js",
@@ -16,15 +16,15 @@
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^24.1.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.5.0",
     "babel-minify": "^0.5.0",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "1.7.0",
-    "jest": "^23.5.0",
-    "coveralls": "^3.0.3"
+    "coveralls": "^3.0.3",
+    "jest": "^24.5.0"
   },
   "files": [
     "dist"
@@ -35,7 +35,7 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "targets": {
             "node": 8,
