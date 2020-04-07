@@ -18,7 +18,7 @@
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-env": "^7.9.5",
     "babel-jest": "^24.9.0",
     "babel-minify": "^0.5.1",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
