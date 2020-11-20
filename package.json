@@ -16,7 +16,7 @@
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.1",
+    "@babel/cli": "^7.12.7",
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "babel-jest": "^26.0.1",
